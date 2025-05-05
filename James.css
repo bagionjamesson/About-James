@@ -1,81 +1,253 @@
 /* General Reset */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Radley', serif;
     margin: 0;
     padding: 0;
     color: #333;
-    background-color: #f4f4f4; /* Light gray background */
+    background-color: #f4f4f4;
     line-height: 1.6;
 }
 
-/* Header */
-header {
-    background-color: #4CAF50; /* Green background */
-    color: #fff; /* White text */
-    padding: 1rem 0;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2rem;
-}
-
-.navigation {
+/* Remove bullets globally */
+ul, ol {
     list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #f4f4f4;
+    padding: 4rem 2rem;
     display: flex;
     justify-content: center;
-    margin: 0;
-    padding: 0;
+    align-items: center;
 }
 
-.navigation li {
-    margin: 0 1rem;
+.hero-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+    gap: 2rem;
 }
 
-.navigation a {
-    color: #fff; /* White text for links */
-    text-decoration: none;
-    font-weight: bold;
+.hero-text {
+    flex: 1;
+    text-align: left;
+    color: #333;
 }
 
-.navigation a:hover {
-    text-decoration: underline;
-}
-
-/* Main Sections */
-.section {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #fff; /* White background for sections */
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.section h2 {
-    color: #4CAF50; /* Green section headers */
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 0.5rem;
+.hero-text h1 {
+    font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
-.section ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
+.hero-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
 }
 
-.section ul li {
+.hero-image {
+    flex: 1;
+    text-align: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections */
+.section {
+    margin: 0;
+    padding: 2rem;
+    max-width: 100%;
+    border-radius: 0;
+}
+
+/* About Me Section */
+#about-me {
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+}
+
+/* Certificates Section */
+#certificates {
+    background-color: #1a1a1a; /* Dark gray background */
+    color: #fff; /* White text */
+    text-align: center;
+    padding: 2rem;
+}
+
+#certificates h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#certificates p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.certificate-slider {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.slides img.active {
+    display: block;
+}
+
+/* Navigation Buttons */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 50%;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Acting Credits Section */
+#acting-credits {
+    background-color: #fff;
+    color: #000;
+    text-align: left;
+    padding-left: 2rem;
+}
+
+#acting-credits ul li {
     margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* Testimonial Section */
+#testimonial {
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333; /* Dark gray text */
+    text-align: center;
+    padding: 2rem;
+}
+
+#testimonial h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+blockquote {
+    font-style: italic;
+    color: #555; /* Slightly darker gray for the text */
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Contact Section */
+#contact {
+    background-color: #fff;
+    color: #000;
+    text-align: center;
 }
 
 /* Footer */
 footer {
-    background-color: #333; /* Dark gray background */
-    color: #fff; /* White text */
+    background-color: #000;
+    color: #fff;
     text-align: center;
     padding: 1rem 0;
-    margin-top: 2rem;
-    font-size: 0.9rem;
+    margin-top: 0;
+}
+
+/* Navigation Toggle Button */
+.nav-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1000;
+    border-radius: 5px;
+}
+
+/* Navigation Menu */
+.navigation {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 2rem 1rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease-in-out;
+    z-index: 999;
+}
+
+.navigation.active {
+    left: 0;
+}
+
+.navigation ul {
+    padding: 0;
+    margin: 0;
+}
+
+.navigation li {
+    margin: 1rem 0;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
 }
