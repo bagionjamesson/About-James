@@ -1,109 +1,552 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About James</title>
-    <link rel="stylesheet" href="James.css">
-    <link href="https://fonts.googleapis.com/css2?family=Radley&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Executive Virtual Assistant & GoHighLevel Certified Admin</title>
+  <meta name="description" content="Executive Virtual Assistant & GoHighLevel Certified Admin helping entrepreneurs scale smarter." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* REVISED "LIGHTER" DARK THEME PALETTE */
+    :root{
+      --bg: #262626; /* Charcoal Gray */
+      --card: #404040; /* Lighter Gray */
+      --text: #F3F4F6; /* Off-White */
+      --muted: #A3A3A3; /* Medium Gray */
+      --line: #525252; /* Border Gray */
+      --accent: #2DD4BF; /* Bright Teal */
+      --accent-dark: #14B8A6; /* Darker Teal */
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --radius-xl: 16px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;line-height:1.6}
+    body.modal-open{overflow:hidden;}
+    img{max-width:100%;display:block}
+    a{color:var(--accent);text-decoration:none;transition: color .2s ease}
+    a:hover{color: var(--accent-dark)}
+    .container{width:100%;max-width:1180px;margin-inline:auto;padding:0 20px}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:#111827;font-weight:700;border:none;padding:.9rem 1.5rem;border-radius:12px;cursor:pointer;box-shadow:var(--shadow);transition:.2s ease;}
+    .btn:hover{background:var(--accent-dark);transform: translateY(-2px);}
+    .btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent);padding: calc(.9rem - 2px) calc(1.5rem - 2px);}
+    .btn-outline:hover{background:var(--accent); color: #111827;}
+    .pill{display:inline-flex;align-items:center;gap:.5rem;background:var(--card);color:var(--text);padding:.45rem .75rem;border-radius:999px;font-size:.85rem;font-weight:600;}
+    .badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#111827;border-radius:999px;padding:.35rem .8rem;font-size:.8rem;font-weight:700}
+
+    /* Header */
+    header{position:fixed;inset-inline:0;top:0;z-index:50;background:rgba(38, 38, 38, 0.8); backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line); transition: box-shadow .2s ease}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+    .brand{display:flex;align-items:center;gap:.8rem; color: var(--text)}
+    .brand-logo{width:36px;height:36px;border-radius:12px;background:var(--accent)}
+    .menu{display:none;gap:1.5rem;align-items:center}
+    .menu a{font-weight:600;color:var(--text)}
+    .menu a.active{color:var(--accent)}
+    .hamburger{display:inline-flex;flex-direction:column;gap:4px;border:0;background:transparent;cursor:pointer}
+    .hamburger span{width:26px;height:2px;background:var(--text);border-radius:2px}
+    .mobile-panel{display:none;background: var(--bg); border-top:1px solid var(--line);padding:12px 0}
+    .mobile-panel a{display:block;padding:12px 8px;border-radius:12px;font-weight:600;color:var(--text)}
+    .mobile-panel a.active{color:var(--accent);background:var(--card)}
+
+    /* Sections */
+    section{scroll-margin-top:96px; padding: 80px 0;}
+    .hero{padding:140px 0 64px}
+    .grid{display:grid;gap:24px}
+    .grid-2{grid-template-columns:1fr}
+    .grid-3{grid-template-columns:1fr}
+
+    /* Cards */
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow)}
+    .shadow-sm{box-shadow:var(--shadow)}
+
+    h1,h2,h3{font-family:Montserrat, Inter, sans-serif;font-weight:800;line-height:1.2;margin:0; color: var(--text)}
+    .h1{font-size:clamp(32px, 5vw, 48px)}
+    .h2{font-size:clamp(28px, 4vw, 38px)}
+    .lead{font-size:1.125rem;color:var(--muted)}
+    .muted{color:var(--muted)}
+    .divider{height:1px;background:var(--line);margin:32px 0}
+    .section-header{text-align:center; max-width: 600px; margin: 0 auto 32px auto;}
+
+    /* Services */
+    .service-card{transition:transform .2s ease, box-shadow .2s ease; cursor: pointer;}
+    .service-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.25)}
+
+    /* CTA band */
+    .cta-band{background:var(--accent);color:#fff;padding:64px 0;text-align:center;border-radius:var(--radius-xl); margin: 64px auto;}
+    .cta-band h2, .cta-band p{color: var(--bg)}
+
+    /* Testimonials */
+    .testimonial{display:flex;gap:14px;align-items:flex-start}
+    .avatar{width:44px;height:44px;border-radius:50%;object-fit:cover}
+    .carousel{position:relative}
+    .carousel-controls{display:flex;gap:10px;justify-content:center;margin-top:12px}
+    .circle-btn{width:36px;height:36px;border:1px solid var(--line);border-radius:999px;background:var(--card); color: var(--text); display:grid;place-items:center;cursor:pointer}
+
+    /* Contact Form */
+    form .form-group { margin-bottom: 1rem; }
+    form input, form select, form textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:14px;font:inherit; background: var(--bg); color: var(--text);}
+    form label{font-size:.95rem;font-weight:600;color:var(--text); display: block; margin-bottom: .4rem;}
+
+    /* Footer */
+    footer{background:var(--card);padding:40px 0;margin-top:64px; border-top: 1px solid var(--line)}
+
+    /* Floating CTA */
+    .float-cta{position:fixed;right:20px;bottom:20px;z-index:40;display:none}
+    
+    /* MODAL STYLES */
+    .modal{position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.7); backdrop-filter: blur(5px); opacity:0; transition:opacity .3s ease;}
+    .modal.active{display:flex; opacity:1;}
+    .modal-content{background:var(--card); padding:2rem; border-radius:var(--radius-xl); max-width:600px; width:90%; position:relative; transform:scale(.95); transition:transform .3s ease;}
+    .modal.active .modal-content{transform:scale(1);}
+    .modal-close-btn{position:absolute; top:1rem; right:1rem; background:transparent; border:none; font-size:2rem; line-height:1; color:var(--muted); cursor:pointer; transition: color .2s ease;}
+    .modal-close-btn:hover{color:var(--text);}
+    .modal-content ul {list-style-type: disc; padding-left: 20px; color: var(--muted);}
+    .modal-content ul li {margin-bottom: 0.5rem;}
+
+
+    /* Media */
+    @media (min-width: 768px){
+      .menu{display:flex}
+      .hamburger{display:none}
+      .grid-2{grid-template-columns:1.1fr .9fr}
+      .grid-3{grid-template-columns:repeat(3, 1fr)}
+      .float-cta{display:inline-flex}
+    }
+    @media (min-width: 1024px){
+      .hero{padding:160px 0 72px}
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation Toggle Button -->
-    <button class="nav-toggle" onclick="toggleNavigation()">☰</button>
-
-    <!-- Navigation -->
-    <nav class="navigation">
-        <ul>
-            <li><a href="#about-me">About Me</a></li>
-            <li><a href="#what-i-do">What I Do</a></li>
-            <li><a href="#acting-credits">Acting Credits</a></li>
-            <li><a href="#testimonial">Testimonial</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <!-- Left Side: Text -->
-            <div class="hero-text">
-                <h1>Hello, I'm James Bagion!</h1>
-                <p>Welcome to my portfolio website! Explore my skills, education, and achievements.</p>
-            </div>
-            <!-- Right Side: Image -->
-            <div class="hero-image">
-                <img src="JamesP.jpg" alt="James Bagion">
-            </div>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" data-navlink>
+        <div>
+          <div style="font-weight:800">James Bagion</div>
+          <div class="muted" style="font-size:.8rem">Executive VA & GoHighLevel Specialist</div>
         </div>
-    </section>
+      </a>
+      <nav class="menu" aria-label="Primary">
+        <a href="#home" data-navlink>Home</a>
+        <a href="#services" data-navlink>Services</a>
+        <a href="#portfolio" data-navlink>Portfolio</a>
+        <a href="#testimonials" data-navlink>Testimonials</a>
+        <a href="#contact" data-navlink class="btn" style="padding:.7rem 1rem">Apply Now</a>
+      </nav>
+      <button class="hamburger" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="container mobile-panel" id="mobilePanel">
+      <a href="#home" data-navlink>Home</a>
+      <a href="#services" data-navlink>Services</a>
+      <a href="#portfolio" data-navlink>Portfolio / Case Studies</a>
+      <a href="#testimonials" data-navlink>Testimonials</a>
+      <a href="#contact" data-navlink class="btn" style="margin-top:6px;justify-content:center">Apply Now</a>
+    </div>
+  </header>
 
-    <!-- About Me Section -->
-    <section id="about-me" class="section">
-        <h2>ABOUT ME</h2>
-        <p>Hello! My name is James Bagion. I'm consistently looking for opportunities to expand my skill set and contribute at a higher level. I am passionate about learning and growing in my field.</p>
-    </section>
+  <a class="btn float-cta" href="#contact">Apply Now</a>
 
-    <!-- What I Do Section -->
-    <section id="what-i-do" class="section">
-        <h2>WHAT I DO</h2>
-        <ul>
-            <li>Musical Theater</li>
-            <li>Solo Theater</li>
-            <li>Understudy Roles</li>
-        </ul>
-    </section>
-
-    <!-- Acting Credits Section -->
-    <section id="acting-credits" class="section">
-        <h2>MY ACTING CREDITS</h2>
-        <ul>
-            <li><strong>Production:</strong> The Phantom of the Opera</li>
-            <li><strong>Role:</strong> Raoul</li>
-            <li><strong>Director:</strong> Troy Gilberts</li>
-        </ul>
-        <ul>
-            <li><strong>Production:</strong> Les Misérables</li>
-            <li><strong>Role:</strong> Marius</li>
-            <li><strong>Director:</strong> Sarah Johnson</li>
-        </ul>
-    </section>
-
-    <!-- Certificates Section -->
-    <section id="certificates" class="section">
-        <h2>CERTIFICATES</h2>
-        <p>Here are some of my achievements and certifications:</p>
-        <div class="certificate-slider">
-            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
-            <div class="slides">
-                <img src="certificate1.png" alt="Certificate 1" class="active">
-                <img src="certificate2.png" alt="Certificate 2">
-                <img src="certificate3.png" alt="Certificate 3">
-            </div>
-            <button class="next" onclick="changeSlide(1)">&#10095;</button>
+  <section id="home" class="hero">
+    <div class="container grid grid-2">
+      <div>
+        <span class="badge" aria-label="GoHighLevel Certification">GHL Certified Admin</span>
+        <h1 class="h1" style="margin-top:14px">Your Executive Partner in Productivity &amp; Automation</h1>
+        <p class="lead" style="margin-top:10px">Executive Virtual Assistant &amp; GoHighLevel Certified Admin helping entrepreneurs scale smarter.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+          <a href="#contact" class="btn">Apply for a Consultation</a>
+          <a href="#why" class="btn btn-outline">Learn More</a>
         </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:24px">
+          <p class="muted" style="font-weight: 600; font-size: 0.9rem;">Tools & Platforms:</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+            <img src="https://cdn.simpleicons.org/shopify/96BF48" alt="Shopify" title="Shopify" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/woocommerce/96588A" alt="WooCommerce" title="WooCommerce" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/quickbooks/2CA01C" alt="QuickBooks" title="QuickBooks" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/stripe/635BFF" alt="Stripe" title="Stripe" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/facebook/1877F3" alt="Facebook" title="Facebook" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/slack/4A154B" alt="Slack" title="Slack" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram" title="Instagram" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/google/4285F4" alt="Google" title="Google" width="28" height="28">
+            <img src="https://cdn.simpleicons.org/zapier/FF4F00" alt="Zapier" title="Zapier" width="28" height="28">
+            <img src="https://api.iconify.design/mdi/dots-horizontal.svg?color=%2394A3B8" alt="More" title="More" width="28" height="28">
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="padding:12px">
+          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:var(--bg)">
+            <iframe width="100%" height="100%" style="border:0" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Meet Your Executive Virtual Assistant & Certified GoHighLevel Admin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="muted" style="margin-top:10px;font-size:.95rem; text-align: center;">Meet Your Executive Virtual Assistant</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="divider container"></div>
+  
+  <section id="why" aria-labelledby="whyTitle">
+    <div class="container">
+      <div class="section-header">
+          <h2 id="whyTitle" class="h2">Why Choose Me?</h2>
+          <p class="lead" style="margin-top: 8px;">10+ years of executive support, certified expertise, and a commitment to confidential, reliable results.</p>
+      </div>
+      <div class="grid grid-3" style="gap:18px">
+        <div class="card">
+          <h3>Professional</h3>
+          <p class="muted">Executive‑level support with polished communication and proactive ownership.</p>
+        </div>
+        <div class="card">
+          <h3>Certified <span class="badge" style="vertical-align:middle">GHL</span></h3>
+          <p class="muted">GoHighLevel Certified Admin with automation expertise.</p>
+        </div>
+        <div class="card">
+          <h3>Reliable</h3>
+          <p class="muted">Consistent delivery, discretion, and on‑time results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" aria-labelledby="servicesTitle" style="background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line)">
+    <div class="container">
+        <div class="section-header">
+            <h2 id="servicesTitle" class="h2">Service Highlights</h2>
+            <p class="lead" style="margin-top: 8px;">A flexible range of services designed to free up your time and scale your operations.</p>
+        </div>
+      <div class="grid grid-3">
+        <div class="card service-card" data-modal-target="#evaModal">
+          <h3>Executive Virtual Assistant</h3>
+          <p class="muted">Inbox & Calendar • Travel • Docs & Research</p>
+          <span style="font-weight:700;color:var(--accent)">View details →</span>
+        </div>
+        <div class="card service-card" data-modal-target="#ghlModal">
+          <h3>GoHighLevel Admin Services</h3>
+          <p class="muted">CRM • Automations • Email/SMS</p>
+          <span style="font-weight:700;color:var(--accent)">View details →</span>
+        </div>
+        <div class="card service-card" data-modal-target="#packagesModal">
+          <h3>Custom Support Packages</h3>
+          <p class="muted">Monthly retainers or project‑based</p>
+          <span style="font-weight:700;color:var(--accent)">View details →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" aria-labelledby="portTitle">
+    <div class="container">
+        <div class="section-header">
+            <h2 id="portTitle" class="h2">Proven Results</h2>
+            <p class="lead" style="margin-top: 8px;">Real-world examples of how I help businesses streamline operations and improve efficiency.</p>
+        </div>
+      <div class="grid grid-2" style="gap:18px;grid-template-columns:1fr 1fr">
+        <article class="card">
+          <div class="muted" style="text-transform:uppercase;font-size:.8rem; letter-spacing: 1px;">Case Study</div>
+          <h3 style="margin:.25rem 0">Reduced missed appointments by 40% with GoHighLevel automation</h3>
+          <p class="muted">Automated reminders and streamlined booking cut no-shows and saved admin hours.</p>
+          <a class="muted" style="margin-top:8px;display:inline-block;color:var(--accent);font-weight:700" href="#contact">See how I can do the same for you →</a>
+        </article>
+        <article class="card">
+          <div class="muted" style="text-transform:uppercase;font-size:.8rem; letter-spacing: 1px;">Case Study</div>
+          <h3 style="margin:.25rem 0">Scaled client onboarding with CRM + Workflow automation</h3>
+          <p class="muted">A central CRM with an automated pipeline cut average onboarding time by 35%.</p>
+          <a class="muted" style="margin-top:8px;display:inline-block;color:var(--accent);font-weight:700" href="#contact">Let’s improve your ops →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" aria-labelledby="testTitle">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="testTitle" class="h2">What Clients Are Saying</h2>
+      </div>
+      <div class="grid" style="grid-template-columns: 1fr; max-width: 768px; margin-inline: auto;">
+        <div class="card carousel" id="carousel">
+          <figure class="testimonial">
+            <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Alex Parker" />
+            <figcaption>
+              <p>“An absolute game‑changer — streamlined our operations and saved me 20+ hours every week.”</p>
+              <div class="muted" style="font-size:.9rem; font-weight: 600;">Alex Parker — Founder, Thrive Coaching</div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial" hidden>
+            <img class="avatar" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop" alt="Jordan Lee" />
+            <figcaption>
+              <p>“Our missed appointments dropped by 40% after her GoHighLevel automation overhaul.”</p>
+              <div class="muted" style="font-size:.9rem; font-weight: 600;">Jordan Lee — CEO, Beacon Consulting</div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial" hidden>
+            <img class="avatar" src="https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=200&auto=format&fit=crop" alt="Samantha Patel" />
+            <figcaption>
+              <p>“Professional, proactive, and 100% reliable. I finally have breathing room to grow.”</p>
+              <div class="muted" style="font-size:.9rem; font-weight: 600;">Samantha Patel — Entrepreneur</div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial" hidden>
+            <img class="avatar" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=200&auto=format&fit=crop" alt="Chris Nguyen" />
+            <figcaption>
+              <p>“Always two steps ahead — I trust her judgment on ops and client comms.”</p>
+              <div class="muted" style="font-size:.9rem; font-weight: 600;">Chris Nguyen — Consultant</div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial" hidden>
+            <img class="avatar" src="https://images.unsplash.com/photo-1546527868-ccb7ee7dfa6a?q=80&w=200&auto=format&fit=crop" alt="Taylor Brooks" />
+              <figcaption>
+                <p>“Set up our GHL CRM, email sequences, and reporting in record time.”</p>
+                <div class="muted" style="font-size:.9rem; font-weight: 600;">Taylor Brooks — Coach</div>
+              </figcaption>
+          </figure>
+          
+          <div class="carousel-controls">
+            <button class="circle-btn" data-prev aria-label="Previous">‹</button>
+            <div class="muted" style="font-size:.85rem"><span id="carIndex">1</span> / <span id="carTotal">5</span></div>
+            <button class="circle-btn" data-next aria-label="Next">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="cta-band">
+      <h2 class="h2">Ready to scale your business?</h2>
+      <p style="opacity:.95;margin:.5rem 0 1.5rem; max-width: 500px; margin-inline: auto;">Apply for a consultation today and let's discuss how I can help you reclaim your time.</p>
+      <a class="btn" href="#contact" style="background:var(--bg);color:var(--text);">Apply for a Consultation</a>
     </section>
+  </div>
+  
+  <section id="contact" aria-labelledby="contactTitle">
+    <div class="container grid" style="grid-template-columns: 1fr; max-width: 800px; margin-inline: auto;">
+      <div class="card">
+        <div class="section-header">
+            <h2 id="contactTitle" class="h2">Apply for a Consultation</h2>
+            <p class="lead" style="margin-top: 8px;">Please fill out this short form to get started. If it looks like we're a good fit, I'll reach out to schedule a discovery call.</p>
+        </div>
+        <form id="contactForm" style="margin-top:14px">
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input id="email" type="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="budget">Approx. Monthly Budget</label>
+              <select id="budget" name="budget" required>
+                <option value="" disabled selected>Select your budget...</option>
+                <option value="<1500">&lt; $1,500</option>
+                <option value="1500-3000">$1,500 - $3,000</option>
+                <option value="3000-5000">$3,000 - $5,000</option>
+                <option value="5000+">$5,000+</option>
+              </select>
+            </div>
+             <div class="form-group">
+              <label for="timeline">Project Timeline</label>
+              <select id="timeline" name="timeline" required>
+                <option value="" disabled selected>Select your timeline...</option>
+                <option value="Immediately">Ready to start immediately</option>
+                <option value="1-2 Months">Within 1-2 months</option>
+                <option value="Just Researching">Just researching for now</option>
+              </select>
+            </div>
+            <div class="form-group" style="grid-column:1/-1">
+              <label for="challenge">What is the biggest challenge you're hoping to solve?</label>
+              <textarea id="challenge" name="challenge" rows="5" required></textarea>
+            </div>
+          </div>
+          <div style="margin-top:1rem; text-align: center;">
+            <button type="submit" class="btn">Submit Application</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
 
-    <!-- Testimonial Section -->
-    <section id="testimonial" class="section">
-        <h2>TESTIMONIAL</h2>
-        <blockquote>
-            "James is one of the most dedicated and talented performers I have worked with. His passion for theater is unmatched." - Troy Gilberts
-        </blockquote>
-    </section>
+  <footer>
+    <div class="container grid" style="gap:18px;grid-template-columns:2fr 1fr 1fr">
+      <div>
+        <div style="font-weight:800">James Bagion</div>
+        <p class="muted">Executive VA & GoHighLevel Specialist</p>
+        <div class="muted" style="font-size:.85rem">© <span id="year"></span> Your Name. All rights reserved.</div>
+      </div>
+      <div>
+        <div style="font-weight:700">Quick Links</div>
+        <nav class="muted" style="display:grid;gap:6px;margin-top:6px">
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <div style="font-weight:700">Certified</div>
+        <div class="pill" style="margin-top:8px">GoHighLevel Certified Admin</div>
+        <div class="muted" style="display:flex;gap:10px;margin-top:10px">
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" aria-label="Twitter">Twitter</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <h2>CONTACT ME</h2>
-        <p>Email: <a href="mailto:bagionjamesson12@gmail.com">bagionjamesson12@gmail.com</a></p>
-        <p>Facebook: <a href="https://www.facebook.com/james.bagion.5" target="_blank">James Bagion</a></p>
-        <p>Instagram: <a href="https://www.instagram.com/james_bgn2/" target="_blank">James BGN</a></p>
-    </section>
+  <div class="modal" id="evaModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+        <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+        <h3>Executive Virtual Assistant Services</h3>
+        <p class="lead">High-level administrative, technical, and creative support to free up your time and streamline your daily operations.</p>
+        <ul>
+            <li><strong>Inbox & Calendar Management:</strong> Filtering emails, managing appointments, and ensuring your schedule is optimized and conflict-free.</li>
+            <li><strong>Meeting & Travel Coordination:</strong> Handling all logistics for virtual or in-person meetings, including travel bookings and itinerary planning.</li>
+            <li><strong>Document Preparation & Research:</strong> Creating polished presentations, reports, and spreadsheets, as well as conducting in-depth research.</li>
+            <li><strong>Client & Vendor Coordination:</strong> Acting as a professional point of contact for your key relationships, ensuring clear communication and timely follow-ups.</li>
+        </ul>
+        <a href="#contact" class="btn" style="margin-top:1rem">Apply for this Service</a>
+    </div>
+  </div>
+  <div class="modal" id="ghlModal" role="dialog" aria-modal="true">
+      <div class="modal-content">
+          <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+          <h3>GoHighLevel Admin Services</h3>
+          <p class="lead">As a Certified GHL Admin, I manage and optimize your entire GoHighLevel ecosystem to drive leads, conversions, and client retention.</p>
+          <ul>
+              <li><strong>CRM Setup & Customization:</strong> Structuring your entire CRM with custom fields, pipelines, and tags for perfect organization.</li>
+              <li><strong>Automation Workflows & Pipelines:</strong> Building complex, automated workflows for lead nurturing, onboarding, reminders, and more.</li>
+              <li><strong>Email/SMS Campaigns:</strong> Designing, writing, and implementing effective marketing campaigns directly within GHL.</li>
+              <li><strong>Reporting & Optimization:</strong> Creating dashboards and reports to track your KPIs and continuously improve your marketing and sales funnels.</li>
+          </ul>
+          <a href="#contact" class="btn" style="margin-top:1rem">Apply for this Service</a>
+      </div>
+  </div>
+  <div class="modal" id="packagesModal" role="dialog" aria-modal="true">
+      <div class="modal-content">
+          <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+          <h3>Custom Support Packages</h3>
+          <p class="lead">Flexible engagement models designed to fit your unique business needs, whether you require ongoing support or help with a specific project.</p>
+          <ul>
+              <li><strong>Monthly Retainers:</strong> Secure a block of my time each month for consistent, ongoing support. This is ideal for executives who need a reliable partner.</li>
+              <li><strong>Project-Based:</strong> Have a specific, one-time project? We can scope it out and work on a fixed-project basis. Perfect for system setups or event planning.</li>
+              <li><strong>Tailored Support for Launches & Events:</strong> Get dedicated support during your most critical business periods, like product launches or virtual summits.</li>
+              <li><strong>Scalable Engagement:</strong> Start with what you need and scale up as your business grows.</li>
+          </ul>
+          <a href="#contact" class="btn" style="margin-top:1rem">Request a Custom Quote</a>
+      </div>
+  </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 James Bagion. All rights reserved.</p>
-    </footer>
 
-    <script src="script.js"></script>
+  <script>
+    // --- Mobile Menu ---
+    const mobilePanel = document.getElementById('mobilePanel');
+    const menuBtn = document.getElementById('menuBtn');
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = mobilePanel.style.display === 'block';
+      mobilePanel.style.display = isOpen ? 'none' : 'block';
+      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+    mobilePanel?.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (a) {
+        mobilePanel.style.display = 'none';
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // --- Scroll Spy ---
+    const navLinks = document.querySelectorAll('[data-navlink]');
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries){
+        const link = document.querySelector(`a[href="#${entry.target.id}"]`);
+        if (!link) continue;
+        if (entry.isIntersecting){
+          navLinks.forEach(l=>l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      }
+    }, { rootMargin: '-60% 0px -35% 0px', threshold: 0 });
+    sections.forEach(s=>observer.observe(s));
+
+    // --- Header Shadow on Scroll ---
+    const header = document.querySelector('header');
+    const onScroll = () => {
+      header.style.boxShadow = window.scrollY > 10 ? '0 6px 20px rgba(0,0,0,.25)' : 'none';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // --- Carousel Logic ---
+    const carousel = document.getElementById('carousel');
+    if (carousel){
+      const slides = Array.from(carousel.querySelectorAll('figure'));
+      const prev = carousel.querySelector('[data-prev]');
+      const next = carousel.querySelector('[data-next]');
+      const idxEl = document.getElementById('carIndex');
+      const totalEl = document.getElementById('carTotal');
+      if (totalEl) totalEl.textContent = slides.length;
+      let i = 0;
+      const show = (n) => {
+        slides.forEach((s, k)=>{ s.hidden = k !== n; });
+        if(idxEl) idxEl.textContent = String(n+1);
+      };
+      prev.addEventListener('click', ()=>{ i = (i - 1 + slides.length) % slides.length; show(i); });
+      next.addEventListener('click', ()=>{ i = (i + 1) % slides.length; show(i); });
+      show(0);
+    }
+
+    // --- Contact Form Logic ---
+    document.getElementById('contactForm')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      alert(`Thank you for your application, ${data.name}! I'll review it and reach out to ${data.email} within 2 business days if it looks like we're a good fit.`);
+      e.target.reset();
+    });
+
+    // --- NEW MODAL LOGIC ---
+    const modalTriggers = document.querySelectorAll('[data-modal-target]');
+    
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const modalId = trigger.dataset.modalTarget;
+            const modal = document.querySelector(modalId);
+            if(modal) {
+                openModal(modal);
+            }
+        });
+    });
+
+    function openModal(modal) {
+        if (modal == null) return;
+        modal.classList.add('active');
+        document.body.classList.add('modal-open');
+        // Add listeners to close modal
+        const closeBtn = modal.querySelector('.modal-close-btn');
+        closeBtn.addEventListener('click', () => closeModal(modal));
+        modal.addEventListener('click', e => {
+            if (e.target === modal) closeModal(modal);
+        });
+        // Also close modal if they click a link inside it
+        const linkBtn = modal.querySelector('.btn');
+        linkBtn?.addEventListener('click', () => closeModal(modal));
+    }
+
+    function closeModal(modal) {
+        if (modal == null) return;
+        modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+
+
+    // --- Footer Year ---
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
